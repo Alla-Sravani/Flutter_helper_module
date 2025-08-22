@@ -50,6 +50,8 @@ class AddhelperScreenState extends State<AddhelperScreen> {
     'icon': PhosphorIconsRegular.moped,
   };
 
+  String vehicleNumber = 'TS 08 AB 1234';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -523,6 +525,7 @@ class AddhelperScreenState extends State<AddhelperScreen> {
                                   height: 700,
                                   child: SelectVehicleTypeScreen(
                                     selectedVehicle: selectedVehicleType,
+                                    VehicleNumber: VehicleNumberController.text,
                                     onselected: (vehicle) {
                                       setState(() {
                                         selectedVehicleType = vehicle;
@@ -534,8 +537,8 @@ class AddhelperScreenState extends State<AddhelperScreen> {
 
                               if (result != null) {
                                 setState(() {
-                                  selectedVehicleType =
-                                      result; // <-- update state here
+                                  selectedVehicleType = result.vehicle;
+                                  vehicleNumber = result.vehicleNumber;
                                 });
                               }
                             },
@@ -543,7 +546,7 @@ class AddhelperScreenState extends State<AddhelperScreen> {
                             controller: VehicleNumberController,
                             decoration: InputDecoration(
                               prefixIcon: Icon(selectedVehicleType['icon']),
-                              hintText: selectedVehicleType['name'],
+                              hintText: vehicleNumber,
                               labelStyle: TextStyle(
                                 color: Color(0xFF667085),
                                 fontSize: 16,

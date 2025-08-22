@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:helper_module_frontend/repository/widgets/uihelper.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:helper_module_frontend/constants/appcolors.dart';
+import 'package:helper_module_frontend/repository/widgets/VehicleSelectionResult.dart';
 
 class SelectVehicleTypeScreen extends StatefulWidget {
   const SelectVehicleTypeScreen({
     super.key,
     required this.selectedVehicle,
-    //required this.selectedIcon,
+    required this.VehicleNumber,
     required this.onselected,
   });
   final Map<String, dynamic> selectedVehicle;
-  //final Icon selectedIcon;
+  final String VehicleNumber;
   final Function(Map<String, dynamic>) onselected;
   @override
   State<SelectVehicleTypeScreen> createState() =>
@@ -158,7 +159,13 @@ class _SelectVehicleTypeScreenState extends State<SelectVehicleTypeScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context, selectedVehicle);
+                  Navigator.pop(
+                    context,
+                    VehicleSelectionResult(
+                      vehicle: selectedVehicle,
+                      vehicleNumber: VehicleController.text,
+                    ),
+                  );
                 },
 
                 style: ElevatedButton.styleFrom(
