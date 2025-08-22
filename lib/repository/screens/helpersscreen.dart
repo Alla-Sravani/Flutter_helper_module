@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helper_module_frontend/repository/screens/addhelperscreen.dart';
+import 'package:helper_module_frontend/repository/screens/viewdetailsscreen.dart';
 import 'package:helper_module_frontend/repository/widgets/uihelper.dart';
 import 'package:helper_module_frontend/constants/appcolors.dart';
 
@@ -24,7 +25,7 @@ class HelpersScreenState extends State<HelpersScreen> {
     {'name': 'Mike Johnson', 'description': 'Carpentor'},
   ];
 
-  final arrImages = [
+  final List<String> arrImages = [
     'profile.jpeg',
     'profile2.png',
     'ProfileF.webp',
@@ -41,6 +42,7 @@ class HelpersScreenState extends State<HelpersScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Appcolors.scaffoldBackground,
+        centerTitle: false,
         title: Uihelper.CustomFont(
           text: 'Helpers',
           color: Colors.white,
@@ -83,29 +85,43 @@ class HelpersScreenState extends State<HelpersScreen> {
           Expanded(
             child: ListView.separated(
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    radius: 25,
-                    backgroundImage: Uihelper.CustomImage(
-                      img: arrImages[index],
-                    ).image,
-                  ),
-                  title: Uihelper.CustomFont(
-                    text: data[index]['name']!,
-                    color: Colors.black,
-                    fontweight: FontWeight.w700,
-                    fontsize: 16,
-                    fontfamily: "Nunito_SansBold",
-                  ),
-                  subtitle: Text(data[index]['description']!),
-                  trailing: CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Appcolors.secondaryColor,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ViewDetailsScreen(
+                          image: arrImages[index],
+                          name: data[index]['name']!,
+                          description: data[index]['description']!,
+                        ),
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 25,
+                      backgroundImage: Uihelper.CustomImage(
+                        img: arrImages[index],
+                      ).image,
+                    ),
+                    title: Uihelper.CustomFont(
+                      text: data[index]['name']!,
+                      color: Colors.black,
+                      fontweight: FontWeight.w700,
+                      fontsize: 16,
+                      fontfamily: "Nunito_SansBold",
+                    ),
+                    subtitle: Text(data[index]['description']!),
+                    trailing: CircleAvatar(
+                      radius: 25,
+                      backgroundColor: Appcolors.secondaryColor,
 
-                    child: Icon(
-                      Icons.call,
-                      color: Appcolors.primaryColor,
-                      size: 25,
+                      child: Icon(
+                        Icons.call,
+                        color: Appcolors.primaryColor,
+                        size: 25,
+                      ),
                     ),
                   ),
                 );
